@@ -1,0 +1,42 @@
+---
+title: "Tarea estupenda"
+output: html_document
+date: "2023-08-31"
+---
+```{r}
+library(dplyr)
+#library(tidyverse)
+library(kableExtra)
+library(knitr)
+```
+Protected_Areas <-
+```{r}
+# Cargar el data frame
+Protected_Areas <- readRDS("Protected_areas.rds")
+Protected_Areas %>%
+  group_by(SUB_LOC, DESIG) %>%
+  summarise(superficie_terrestre = sum(TERR_AREA))
+```
+#ejercicio 2
+```{r}
+Protected_Areas %>%
+  filter(MARINE == 0) %>%
+  filter(SUB_LOC == "Los Lagos") %>%
+  group_by(DESIG) %>%
+  summarise(n = n()) %>%
+  kable(format = "markdown", caption = "Número de áreas protegidas por tipo en Los Lagos")
+
+  
+```
+
+EJERCICIO 3
+```{r}
+Protected_Areas %>%
+  filter(MARINE == 0) %>%
+  filter(SUB_LOC == "Los Lagos") %>%
+  arrange(desc(TERR_AREA)) %>%
+  slice(1) %>%
+  select(NAME)
+
+```
+
